@@ -1,0 +1,82 @@
+## libapex
+#
+# 0: UPPER_CASE
+# 1: CamelCase
+# 2: snake_case
+# 3: kabob-case
+
+# apex-gobj-final-hdr
+snippet apex-gobj-final-hdr "libapex GLib C header file"
+/*
+ * Copyright © the Apex contributors. All rights reserved.
+ *
+ * This file is part of libapex, distributed under the MIT license.
+ * For full terms see the included LICENSE file.
+ */
+
+#ifndef APEX_${0}_H
+#define APEX_${0}_H
+
+#include <glib-object.h>
+
+G_BEGIN_DECLS
+
+#define APEX_TYPE_${0} apex_${2}_get_type ()
+G_DECLARE_FINAL_TYPE (Apex${1}, apex_${2}, APEX, ${0}, GObject)
+
+Apex${1} *apex_${2}_new (void);
+
+G_END_DECLS
+
+#endif /* APEX_${0}_H */
+endsnippet
+
+# apex-gobj-final-csrc
+snippet apex-gobj-final-csrc "libapex GLib C source file"
+/*
+ * Copyright © the Apex contributors. All rights reserved.
+ *
+ * This file is part of libdcs, distributed under the MIT license.
+ * For full terms see the included LICENSE file.
+ */
+
+#include "apex-${2}.h"
+
+struct _Apex${1}
+{
+  GObject parent;
+};
+
+G_DEFINE_TYPE (Apex${1}, apex_${2}, G_TYPE_OBJECT)
+
+static void
+apex_${2}_finalize ()
+{
+  Apex${1} *self = (Apex${1} *)object;
+
+  G_OBJECT_CLASS (apex_${2}_parent_class)->finalize (object);
+}
+
+static void
+apex_${2}_class_init (Apex${1}Class *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+  object_class->finalize = apex_${2}_finalize;
+}
+
+static void
+apex_${2}_init (Apex${1} *self)
+{
+}
+
+Apex${1} *
+apex_${2}_new (void)
+{
+  Apex${1} *object = g_object_new (APEX_TYPE_${0}, NULL);
+
+  // TODO: add setup
+
+  return object;
+}
+endsnippet

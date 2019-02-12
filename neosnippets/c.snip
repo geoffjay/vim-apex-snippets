@@ -160,11 +160,11 @@ snippet appex-gpropsetter "GLib property C file set fn for individual property"
 abbr    agprsetter
     void
     apex_${1:snake case class name}_set_${2:property name} (Apex${3:camel case class name} *self,
-                                                                ${4:property type} ${5:property name})
+                                                                ${4:property type} $2)
     {
       g_return_if_fail (APEX_IS_${6:upper case class name} (self));
 
-      self->$5 = $5;
+      self->$2 = $2;
     }
 
 # }}}

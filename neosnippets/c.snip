@@ -1,4 +1,5 @@
 # GObject templates {{{
+
 snippet apex-gofh "libapex GLib C header file"
 abbr    agofh
     /*
@@ -146,7 +147,7 @@ abbr    agprinit
 
     g_object_class_install_properties (object_class, N_PROPS, properties);
 
-snippet appex-gpropgetter "GLib property C file get fn for individual property"
+snippet apex-gpropgetter "GLib property C file get fn for individual property"
 abbr    agprgetter
     ${1:property type}
     apex_${2:snake case class name}_get_${3:property name} (Apex${4:camel case class name} *self)
@@ -156,7 +157,7 @@ abbr    agprgetter
       return self->$3;
     }
 
-snippet appex-gpropsetter "GLib property C file set fn for individual property"
+snippet apex-gpropsetter "GLib property C file set fn for individual property"
 abbr    agprsetter
     void
     apex_${1:snake case class name}_set_${2:property name} (Apex${3:camel case class name} *self,
@@ -165,6 +166,41 @@ abbr    agprsetter
       g_return_if_fail (APEX_IS_${6:upper case class name} (self));
 
       self->$2 = $2;
+    }
+
+# }}}
+
+# Unit tests {{{
+
+snippet gunit
+    static void
+    test_${1:snake case name}_construct (void)
+    {
+      g_autoptr (Apex${2}) object = NULL;
+
+      object = apex_$1_new ();
+
+      // g_assert_...
+    }
+
+    gint
+    main (gint argc, gchar *argv[])
+    {
+      g_test_init (&argc, &argv, NULL);
+
+      g_test_add_func ("/$2/construct", test_$1_construct);
+
+      return g_test_run ();
+    }
+
+snippet gunitfn
+    static void
+    test_${1:snake case name}_${2:test name} (void)
+    {
+      g_autoptr (${3:camel class name}) object = NULL;
+
+      // add to main:
+      // g_test_add_func ("/$3/$2", test_$1_$2);
     }
 
 # }}}

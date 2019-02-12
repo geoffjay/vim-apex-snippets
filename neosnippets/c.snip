@@ -16,27 +16,27 @@ abbr    agofh
      */
 
     #ifndef APEX_${0:TYPE}_H
-    #define APEX_${0}_H
+    #define APEX_$0_H
 
     #include <glib-object.h>
 
     G_BEGIN_DECLS
 
-    #define APEX_TYPE_${0} apex_${2:type}_get_type ()
-    G_DECLARE_FINAL_TYPE (Apex${1:Type}, apex_${2}, APEX, ${0}, GObject)
+    #define APEX_TYPE_$0 apex_${2:type}_get_type ()
+    G_DECLARE_FINAL_TYPE (Apex${1:Type}, apex_$2, APEX, $0, GObject)
 
-    Apex${1} *apex_${2}_new (void);
+    Apex$1 *apex_$2_new (void);
 
     G_END_DECLS
 
-    #endif /* APEX_${0}_H */
+    #endif /* APEX_$0_H */
 
 snippet apex-gofc "libapex GLib C source file"
 abbr    agofc
     /*
      * Copyright © the Apex contributors. All rights reserved.
      *
-     * This file is part of libdcs, distributed under the MIT license.
+     * This file is part of libapex, distributed under the MIT license.
      * For full terms see the included LICENSE file.
      */
 
@@ -47,37 +47,39 @@ abbr    agofc
       GObject parent;
     };
 
-    G_DEFINE_TYPE (Apex${1}, apex_${2}, G_TYPE_OBJECT)
+    G_DEFINE_TYPE (Apex$1, apex_$2, G_TYPE_OBJECT)
 
     static void
-    apex_${2}_finalize ()
+    apex_$2_finalize ()
     {
-      Apex${1} *self = (Apex${1} *)object;
+      Apex$1 *self = (Apex$1 *)object;
 
-      G_OBJECT_CLASS (apex_${2}_parent_class)->finalize (object);
+      G_OBJECT_CLASS (apex_$2_parent_class)->finalize (object);
     }
 
     static void
-    apex_${2}_class_init (Apex${1}Class *klass)
+    apex_$2_class_init (Apex$1Class *klass)
     {
       GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-      object_class->finalize = apex_${2}_finalize;
+      object_class->finalize = apex_$2_finalize;
     }
 
     static void
-    apex_${2}_init (Apex${1} *self)
+    apex_$2_init (Apex$1 *self)
     {
     }
 
-    Apex${1} *
-    apex_${2}_new (void)
+    Apex$1 *
+    apex_$2_new (void)
     {
-      Apex${1} *object = g_object_new (APEX_TYPE_${0:TYPE}, NULL);
+      Apex$1 *object = g_object_new (APEX_TYPE_${0:TYPE}, NULL);
 
       // TODO: add setup
 
       return object;
     }
+
+snippet apex-gproph
 
 # }}}
